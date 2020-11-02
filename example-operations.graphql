@@ -1,0 +1,60 @@
+query listUsers {
+  users {
+    id
+    handle
+    email
+    posts {
+      id
+      title
+      body
+      published
+      tags
+    }
+  }
+}
+
+query listPosts {
+  posts {
+    id
+    title
+    body
+    published
+    tags
+    authors {
+      id
+      handle
+      email
+    }
+  }
+}
+
+mutation createDraft($authorId: ID!) {
+  createDraft(title: "Foo", body: "In Fooland today...", authors: [$authorId]) {
+    id
+    title
+    body
+    published
+    authors {
+      id
+      handle
+      email
+    }
+  }
+}
+
+mutation registerUser {
+  registerUser(email: "kurht@prisma.io", handle: "jasonkuhrt") {
+    id
+    handle
+    email
+  }
+}
+
+mutation publish($draftId: ID!) {
+  publishDraft(id: $draftId) {
+    id
+    title
+    published
+    tags
+  }
+}
