@@ -11,12 +11,14 @@
   "license": "ISC",
   "dependencies": {
     "@nexus/schema": "^0.17.0",
+    "@prisma/client": "^2.11.0",
     "apollo-server": "^2.19.0",
     "graphql": "^15.4.0",
     "uuid": "^8.3.1"
   },
   "devDependencies": {
     "@prisma-labs/prettier-config": "^0.1.0",
+    "@prisma/cli": "^2.11.0",
     "@types/uuid": "^8.3.0",
     "prettier": "^2.1.2",
     "ts-node": "^9.0.0",
