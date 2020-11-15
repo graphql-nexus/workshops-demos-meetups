@@ -23,7 +23,7 @@ objectType({
     t.field('comments', {
       type: 'Comment',
       list: true,
-      resolve(post) {
+      resolve(user) {
         //    ^^^^
       },
     })
@@ -56,11 +56,10 @@ objectType({
   definition() {
     t.field('comments', {
       type: 'Comment',
-      nullable: false,
       list: true,
-      resolve(post) {
-        return null
-        //     ^^^^ type error
+      resolve(user, _, ctx) {
+        return ctx.db.fetchComments({ userId: user.id })
+        //     ^^^^^^^^^^^^^^^^^^^^ result must type check
       },
     })
   },
