@@ -88,7 +88,7 @@ mutation publish($postId: ID!) {
 }
 ```
 
-## Typesafe Features
+## Example Nexus Typesafe Features
 
 ### Typesafe String-References
 
