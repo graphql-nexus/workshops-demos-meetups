@@ -1,4 +1,3 @@
-// src/database.ts
 export type Database = {
   posts: Post[]
   users: User[]
@@ -6,16 +5,16 @@ export type Database = {
 
 export type Post = {
   id: string
-  title: string
-  body: string
-  published: boolean
+  heading: string
+  content: string
+  isPublished: boolean
   tags: string[]
   authors: User[]
 }
 
 export type User = {
   id: string
-  handle: string
+  username: string
   email: string
   posts: Post[]
 }

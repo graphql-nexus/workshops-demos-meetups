@@ -1,17 +1,24 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
-  provider = "sqlite"
-  url      = "file://db.sqlite"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
   provider = "prisma-client-js"
 }
 
+model Post {
+  id          String   @id @default(uuid())
+  heading     String
+  content     String
+  isPublished Boolean
+  tags        String[]
+  authors     User[]
+}
+
 model User {
-  id     Int    @id @default(autoincrement())
-  email  String @unique
-  handle String
+  id       String @id @default(uuid())
+  username String @unique
+  email    String @unique
+  posts    Post[]
 }

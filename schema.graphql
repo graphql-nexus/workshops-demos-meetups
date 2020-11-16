@@ -4,7 +4,7 @@
 
 type Mutation {
   createDraft(authors: [ID!]!, body: String!, tags: [String!], title: String!): Post!
-  publishDraft(id: ID): Post!
+  publishDraft(id: ID!): Post!
   registerUser(email: String!, handle: String!): User!
 }
 
@@ -19,8 +19,11 @@ type Post {
 
 type Query {
   posts: [Post!]!
+  serach(pattern: String = ".*"): [SearchResult!]
   users: [User!]!
 }
+
+union SearchResult = Post | User
 
 type User {
   email: String!

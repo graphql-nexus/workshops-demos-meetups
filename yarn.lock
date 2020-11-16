@@ -35,10 +35,10 @@
   dependencies:
     xss "^1.0.6"
 
-"@nexus/schema@^0.17.0":
-  version "0.17.0"
-  resolved "https://registry.yarnpkg.com/@nexus/schema/-/schema-0.17.0.tgz#5b6ec9630a9cd17f64a7ffc999378fa9835df3a9"
-  integrity sha512-X/DdvXGDNw2VMi1F2un7JRY17yFbuxXHM+U4ViejAf9jCkhlasdljK3TLTqA5wSFfriFIx0eWtYHkUeOvIjLkg==
+"@nexus/schema@^0.19.0-next.1":
+  version "0.19.0-next.1"
+  resolved "https://registry.yarnpkg.com/@nexus/schema/-/schema-0.19.0-next.1.tgz#3ef567f8a11572c295eaeed586a0bc1a48992857"
+  integrity sha512-Yefiq5U/KbtJ3BRPYEmgHgcq79NeWzGmqCCo3EUbmVOJ8HAT6Y0IGuPcxCjZOECklquNlk2R/9LSx/lTyojTzQ==
   dependencies:
     iterall "^1.2.2"
     tslib "^1.9.3"
