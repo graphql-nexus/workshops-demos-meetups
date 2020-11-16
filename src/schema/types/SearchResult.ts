@@ -22,7 +22,7 @@ export const QuerySerachResult = extendType({
       async resolve(_, args, ctx) {
         const pattern = args.pattern ?? '.*'
         const patternRegExp = new RegExp(pattern, 'i')
-        // const items = [...ctx.database.data.posts, ...ctx.database.data.users]
+        // const items = [...ctx.db.data.posts, ...ctx.db.data.users]
         const items = [...(await ctx.db.post.findMany()), ...(await ctx.db.user.findMany())]
         return items.filter((item) => {
           let match = false

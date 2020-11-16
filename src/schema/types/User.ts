@@ -17,7 +17,7 @@ export const User = objectType({
       type: 'Post',
       list: [true],
       resolve(user, _, ctx) {
-        // return ctx.database.posts.filter((post) => {
+        // return ctx.db.data.posts.filter((post) => {
         //   return (
         //     post.authors.filter((someUserId) => {
         //       return user.id === someUserId
@@ -46,7 +46,7 @@ export const QueryUser = extendType({
       nullable: false,
       list: [true],
       resolve(_, __, ctx) {
-        // return ctx.database.data.users
+        // return ctx.db.data.users
         return ctx.db.user.findMany()
       },
     })
@@ -64,7 +64,7 @@ export const MutationUser = extendType({
         handle: stringArg({ required: true }),
       },
       resolve(_, args, ctx) {
-        // return ctx.database.operations.createUser({
+        // return ctx.db.operations.createUser({
         //   username: args.handle,
         //   email: args.email,
         // })

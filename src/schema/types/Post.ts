@@ -29,7 +29,7 @@ export const Post = objectType({
       type: 'User',
       list: [true],
       resolve(post, __, ctx) {
-        // return ctx.database.users.filter((user) => {
+        // return ctx.db.users.filter((user) => {
         //   return (
         //     user.posts.filter((somePostId) => {
         //       return post.id === somePostId
@@ -58,7 +58,7 @@ export const QueryPost = extendType({
       nullable: false,
       list: [true],
       resolve(_, __, ctx) {
-        // return ctx.database.data.posts
+        // return ctx.db.data.posts
         return ctx.db.post.findMany()
       },
     })
@@ -78,7 +78,7 @@ export const MutationPost = extendType({
         tags: stringArg({ list: [true] }),
       },
       resolve(_, args, ctx) {
-        // return ctx.database.operations.createPost({
+        // return ctx.db.operations.createPost({
         //   heading: args.title,
         //   content: args.body,
         //   authors: args.authors,
@@ -102,7 +102,7 @@ export const MutationPost = extendType({
       nullable: false,
       args: { id: idArg({ required: true }) },
       resolve(_, args, ctx) {
-        // return ctx.database.operations.updatePost(args.id, {
+        // return ctx.db.operations.updatePost(args.id, {
         //   isPublished: true,
         // })
         return ctx.db.post.update({

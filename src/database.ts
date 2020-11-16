@@ -28,7 +28,7 @@ export type User = {
   posts: string[]
 }
 
-export const database: Database = {
+export const db: Database = {
   data: {
     posts: [],
     users: [],
@@ -37,23 +37,24 @@ export const database: Database = {
     createUser(input) {
       const id = uuid.v4()
       const user = { ...input, id, posts: [] }
-      database.data.users.push(user)
+      db.data.users.push(user)
       return user
     },
     createPost(input) {
       input.authors.forEach((authorId) => {
-        const user = database.data.users.find((user) => user.id === authorId)
+        const user = db.data.users.find((user) => user.id === authorId)
         if (!user) {
           throw new Error(`No such user ${authorId}`)
         }
       })
       const id = uuid.v4()
       const post = { ...input, id }
-      database.data.posts.push(post)
+      user.posts.push(post.id)
+      db.data.posts.push(post)
       return post
     },
     updatePost(id, input) {
-      const post = database.data.posts.find((somePost) => somePost.id === id)
+      const post = db.data.posts.find((somePost) => somePost.id === id)
       if (!post) {
         throw new Error(`No such post ${id}`)
       }
@@ -65,15 +66,15 @@ export const database: Database = {
 
 // Seed some data
 
-const user = database.operations.createUser({
-  email: 'kuhrt@prisma.io',
-  username: 'jasonkuhrt',
+const user = db.operations.createUser({
+  email: 'flavian@prisma.io',
+  username: 'weakky',
 })
 
-database.operations.createPost({
+db.operations.createPost({
   authors: [user.id],
-  content: 'Today there was a foo',
-  heading: 'In Fooland today',
+  content: 'Today there was a toto',
+  heading: 'In Todoland today',
   isPublished: false,
   tags: [],
 })
