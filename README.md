@@ -1,6 +1,7 @@
 # Introduction to Nexus <br/> Wroclaw Node Meetup #8 👋
 
 [Slidedeck](https://app.pitch.com/app/public/presentation/c4e7d63f-7fed-49cb-9468-4a8ecc9b128c/86da48e6-1190-4139-a50c-6ac7d13ff300)
+[Meetup Page](https://www.meetup.com/Node-js-Wroclaw/events/274063640/)
 
 ## Learn more about Nexus
 
