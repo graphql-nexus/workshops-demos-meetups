@@ -31,8 +31,8 @@ export const Post = objectType({
       resolve(post, __, ctx) {
         // return ctx.database.users.filter((user) => {
         //   return (
-        //     user.posts.filter((somePost) => {
-        //       return post.id === somePost.id
+        //     user.posts.filter((somePostId) => {
+        //       return post.id === somePostId
         //     }).length > 0
         //   )
         // })
@@ -58,7 +58,7 @@ export const QueryPost = extendType({
       nullable: false,
       list: [true],
       resolve(_, __, ctx) {
-        // return ctx.database.posts
+        // return ctx.database.data.posts
         return ctx.db.post.findMany()
       },
     })
@@ -78,23 +78,13 @@ export const MutationPost = extendType({
         tags: stringArg({ list: [true] }),
       },
       resolve(_, args, ctx) {
-        // const id = uuid.v4()
-        // const post = {
-        //   id,
+        // return ctx.database.operations.createPost({
         //   heading: args.title,
         //   content: args.body,
+        //   authors: args.authors,
         //   tags: args.tags ?? [],
         //   isPublished: false,
-        //   authors: args.authors.map((authorId) => {
-        //     const user = ctx.database.users.find((user) => user.id === authorId)
-        //     if (!user) {
-        //       throw new Error(`No such user ${authorId}`)
-        //     }
-        //     return user
-        //   }),
-        // }
-        // ctx.database.posts.push(post)
-        // return post
+        // })
         return ctx.db.post.create({
           data: {
             heading: args.title,
@@ -112,12 +102,9 @@ export const MutationPost = extendType({
       nullable: false,
       args: { id: idArg({ required: true }) },
       resolve(_, args, ctx) {
-        // const post = ctx.database.posts.find((somePost) => somePost.id === args.id)
-        // if (!post) {
-        //   throw new Error(`No such post ${args.id}`)
-        // }
-        // post.isPublished = true
-        // return post
+        // return ctx.database.operations.updatePost(args.id, {
+        //   isPublished: true,
+        // })
         return ctx.db.post.update({
           data: {
             isPublished: true,

@@ -19,8 +19,8 @@ export const User = objectType({
       resolve(user, _, ctx) {
         // return ctx.database.posts.filter((post) => {
         //   return (
-        //     post.authors.filter((someUser) => {
-        //       return user.id === someUser.id
+        //     post.authors.filter((someUserId) => {
+        //       return user.id === someUserId
         //     }).length > 0
         //   )
         // })
@@ -46,7 +46,7 @@ export const QueryUser = extendType({
       nullable: false,
       list: [true],
       resolve(_, __, ctx) {
-        // return ctx.database.users
+        // return ctx.database.data.users
         return ctx.db.user.findMany()
       },
     })
@@ -64,14 +64,10 @@ export const MutationUser = extendType({
         handle: stringArg({ required: true }),
       },
       resolve(_, args, ctx) {
-        // const user = {
-        //   id: uuid.v4(),
+        // return ctx.database.operations.createUser({
         //   username: args.handle,
         //   email: args.email,
-        //   posts: [],
-        // }
-        // ctx.database.users.push(user)
-        // return user
+        // })
         return ctx.db.user.create({
           data: {
             username: args.handle,

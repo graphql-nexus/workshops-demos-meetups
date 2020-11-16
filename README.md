@@ -138,10 +138,14 @@ mutationField((t) => {
     type: 'User',
     args: {
       email: stringArg({ required: true }),
-      handle: stringArg({ required: true }),
+      visible: booleanArg({ default: false }),
+      location: stringArg(),
     },
     resolve(_, args) {
       //       ^^^^
+      args.email //    <-- string
+      args.visible //  <-- boolean | null
+      args.location // <-- string | null | undefined
     },
   })
 })
