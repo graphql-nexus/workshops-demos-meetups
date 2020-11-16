@@ -1,6 +1,15 @@
 # Wroclaw Node Meetup #8 👋
 
-## Getting Started
+[Slidedeck](https://app.pitch.com/app/presentation/f76a4138-0fba-47a4-a85a-4810afa6a3ef/c4e7d63f-7fed-49cb-9468-4a8ecc9b128c/8e2d8f79-da1a-4cfe-a350-a26ffd5189b3)
+
+## Learn more about Nexus
+
+- https://nexusjs.org
+- https://github.com/graphql-nexus/schema
+- https://nxs.li/learn/examples
+- https://nxs.li/learn/tutorial
+
+## Run this demo
 
 ```
 yarn prisma migrate --experimental save
@@ -9,7 +18,7 @@ yarn prisma generate
 yarn dev
 ```
 
-## Example Operations
+## Example operations
 
 ```graphql
 query search($pattern: String) {
