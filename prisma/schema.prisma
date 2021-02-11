@@ -1,0 +1,102 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["createMany"]
+}
+
+// Project
+
+enum ProjectRole {
+  admin
+  developer
+}
+
+enum ProjectKind {
+  project
+}
+
+model Project {
+  kind        ProjectKind         @default(project)
+  id          String              @id @default(cuid())
+  name        String              @unique
+  displayName String
+  workspaceId String
+  memberships ProjectMembership[]
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+}
+
+enum ProjectMembershipKind {
+  projectMembership
+}
+
+model ProjectMembership {
+  kind      ProjectMembershipKind @default(projectMembership)
+  id        String                @id @default(cuid())
+  role      ProjectRole
+  userId    String
+  projectId String
+
+  project Project @relation(fields: [projectId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@unique([userId, projectId])
+}
+
+// Workspace
+
+enum WorkspaceKind {
+  workspace
+}
+
+model Workspace {
+  kind        WorkspaceKind         @default(workspace)
+  id          String                @id @default(cuid())
+  name        String                @unique
+  displayName String
+  memberships WorkspaceMembership[]
+  projects    Project[]
+}
+
+enum WorkspaceMembershipKind {
+  workspaceMembership
+}
+
+model WorkspaceMembership {
+  kind        WorkspaceMembershipKind @default(workspaceMembership)
+  id          String                  @id @default(cuid())
+  role        WorkspaceRole
+  workspaceId String
+  userId      String
+  projectId   String?
+
+  user      User      @relation(fields: [userId], references: [id])
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+
+  @@unique([userId, workspaceId])
+}
+
+enum WorkspaceRole {
+  admin
+  developer
+}
+
+// User
+
+enum UserKind {
+  user
+}
+
+model User {
+  kind  UserKind @default(user)
+  id    String   @id @default(cuid())
+  email String   @unique
+  name  String
+
+  workspaceMemberships WorkspaceMembership[]
+  projectMemberships   ProjectMembership[]
+}
