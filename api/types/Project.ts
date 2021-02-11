@@ -1,5 +1,5 @@
 import { capitalize } from 'lodash'
-import { inputObjectType, mutationField, nonNull, objectType, unionType, enumType } from 'nexus'
+import { enumType, inputObjectType, mutationField, nonNull, objectType, unionType } from 'nexus'
 import generateName from 'project-name-generator'
 import { resourceNameMaxLength, resourceNamePattern } from '../helpers'
 
@@ -77,21 +77,6 @@ export const types = [
               __typename: 'ClientErrorWorkspaceNotFound',
               message: `No such workspace for given id "${args.input.workspaceId}".`,
               path: ['input', 'workspaceId'],
-            },
-          ],
-        }
-      }
-
-      const action = { kind: 'create_project' }
-      const allowed = ctx.oso.isAllowed(ctx.user, action, workspace)
-
-      if (!allowed) {
-        return {
-          errors: [
-            {
-              __typename: 'ClientErrorNotAuthorized',
-              message: 'You are not authorized to perform this action on this resource.',
-              path: null,
             },
           ],
         }

@@ -139,7 +139,7 @@ export const types = [
   inputObjectType({
     name: 'InviteUserInput',
     definition(t) {
-      t.nonNull.int('userId')
+      t.nonNull.id('userId')
       t.nonNull.id('workspaceId')
       t.nonNull.field('role', {
         type: 'WorkspaceRole',
@@ -178,15 +178,6 @@ export const types = [
           })
           .then((workspace) => workspace!),
       ])
-
-      const action = { kind: 'inviteUserToWorkspace', role: args.input.role }
-      const allowed = await ctx.oso.isAllowed(ctx.user, action, workspace)
-
-      if (!allowed) {
-        throw new Error(
-          `You do not have permission to perform action "${action.kind}" for user "${user.name}" and workspace "${workspace.name}".`
-        )
-      }
 
       return ctx.prisma.workspace.update({
         where: {
@@ -234,13 +225,6 @@ export const types = [
           rejectOnNotFound: true,
         })
         .then((workspace) => workspace!)
-
-      const action = { kind: 'delete' }
-      const allowed = await ctx.oso.isAllowed(ctx.user, action, workspace)
-
-      if (!allowed) {
-        throw new Error(`You do not have permission to perform action "${action.kind}" on workspace ${workspace.id}.`)
-      }
 
       return ctx.prisma.workspace.delete({
         where: {

@@ -60,7 +60,7 @@ input DeleteWorkspaceInput {
 
 input InviteUserInput {
   role: WorkspaceRole!
-  userId: Int!
+  userId: ID!
   workspaceId: ID!
 }
 
