@@ -4,47 +4,24 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["createMany"]
+  provider = "prisma-client-js"
 }
 
-// Project
+// User
 
-enum ProjectRole {
-  admin
-  developer
+enum UserKind {
+  user
 }
 
-enum ProjectKind {
-  project
-}
+model User {
+  kind  UserKind @default(user)
+  id    String   @id @default(cuid())
+  email String   @unique
+  name  String
+  image String?
 
-model Project {
-  kind        ProjectKind         @default(project)
-  id          String              @id @default(cuid())
-  name        String              @unique
-  displayName String
-  workspaceId String
-  memberships ProjectMembership[]
-
-  workspace Workspace @relation(fields: [workspaceId], references: [id])
-}
-
-enum ProjectMembershipKind {
-  projectMembership
-}
-
-model ProjectMembership {
-  kind      ProjectMembershipKind @default(projectMembership)
-  id        String                @id @default(cuid())
-  role      ProjectRole
-  userId    String
-  projectId String
-
-  project Project @relation(fields: [projectId], references: [id])
-  user    User    @relation(fields: [userId], references: [id])
-
-  @@unique([userId, projectId])
+  workspaceMemberships WorkspaceMembership[]
+  projectMemberships   ProjectMembership[]
 }
 
 // Workspace
@@ -85,19 +62,41 @@ enum WorkspaceRole {
   developer
 }
 
-// User
+// Project
 
-enum UserKind {
-  user
+enum ProjectRole {
+  admin
+  developer
 }
 
-model User {
-  kind  UserKind @default(user)
-  id    String   @id @default(cuid())
-  email String   @unique
-  name  String
-  image String?
+enum ProjectKind {
+  project
+}
 
-  workspaceMemberships WorkspaceMembership[]
-  projectMemberships   ProjectMembership[]
+model Project {
+  kind        ProjectKind         @default(project)
+  id          String              @id @default(cuid())
+  name        String              @unique
+  displayName String
+  workspaceId String
+  memberships ProjectMembership[]
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+}
+
+enum ProjectMembershipKind {
+  projectMembership
+}
+
+model ProjectMembership {
+  kind      ProjectMembershipKind @default(projectMembership)
+  id        String                @id @default(cuid())
+  role      ProjectRole
+  userId    String
+  projectId String
+
+  project Project @relation(fields: [projectId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@unique([userId, projectId])
 }

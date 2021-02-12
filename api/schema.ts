@@ -3,6 +3,7 @@ import * as Path from 'path'
 import * as types from './types'
 
 export const schema = makeSchema({
+  types,
   features: {
     abstractTypeStrategies: {
       isTypeOf: true,
@@ -11,19 +12,21 @@ export const schema = makeSchema({
   nonNullDefaults: {
     output: true,
   },
-  types,
   outputs: {
     typegen: Path.join(process.cwd(), '/node_modules/@types/nexus-typegen/index.d.ts'),
     schema: Path.join(process.cwd(), '/api/schema.graphql'),
   },
   contextType: {
-    export: 'Context',
     module: Path.join(process.cwd(), '/api/context.ts'),
+    export: 'Context',
   },
   sourceTypes: {
     modules: [
       { module: '.prisma/client', alias: 'PrismaClient' },
-      { module: Path.join(process.cwd(), 'api/typeSources.ts'), alias: 'TypeSources' },
+      {
+        module: Path.join(process.cwd(), 'api/typeSources.ts'),
+        alias: 'TypeSources',
+      },
     ],
   },
 })

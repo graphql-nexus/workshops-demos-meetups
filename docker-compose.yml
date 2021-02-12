@@ -1,9 +1,9 @@
 version: '3.8'
 services:
-  # postgres://prisma:prisma@localhost:5435
+  # postgres://postgres:postgres@localhost:5435
   postgres:
     image: postgres:10
-    container_name: prisma-cloud
+    container_name: nodejs-sf-meetup
     restart: always
     environment:
       - POSTGRES_USER=postgres
