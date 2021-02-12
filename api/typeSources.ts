@@ -26,6 +26,10 @@ export type ClientErrorWorkspaceNameInvalid = ClientError & {
   __typename: 'ClientErrorProjectNameInvalid'
 }
 
+export type ClientErrorAlreadyInWorkspace = ClientError & {
+  __typename: 'ClientErrorAlreadyInWorkspace'
+}
+
 /**
  * Generic
  */

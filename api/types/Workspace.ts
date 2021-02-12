@@ -147,6 +147,42 @@ export const types = [
     },
   }),
 
+  unionType({
+    name: 'InviteUserToWorkspaceResult',
+    definition(t) {
+      t.members('Workspace', 'InviteUserToWorkspaceErrors')
+    },
+  }),
+
+  objectType({
+    name: 'InviteUserToWorkspaceErrors',
+    isTypeOf(model) {
+      return 'errors' in model
+    },
+    definition(t) {
+      t.list.field('errors', {
+        type: 'InviteUserToWorkspaceError',
+      })
+    },
+  }),
+
+  unionType({
+    name: 'InviteUserToWorkspaceError',
+    definition(t) {
+      t.members('ClientErrorWorkspaceNotFound', 'ClientErrorAlreadyInWorkspace')
+    },
+  }),
+
+  objectType({
+    name: 'ClientErrorAlreadyInWorkspace',
+    isTypeOf(model) {
+      return '__typename' in model && model.__typename === 'ClientErrorAlreadyInWorkspace'
+    },
+    definition(t) {
+      t.implements('ClientError')
+    },
+  }),
+
   mutationField('inviteUserToWorkspace', {
     type: 'Workspace',
     args: {
@@ -157,27 +193,17 @@ export const types = [
         throw new Error(`You cannot invite yourself to a workspace`)
       }
 
-      const [user, workspace] = await Promise.all([
-        ctx.prisma.user
-          .findUnique({
-            where: {
-              id: args.input.userId,
-            },
-            rejectOnNotFound: true,
-          })
-          .then((user) => user!),
-        ctx.prisma.workspace
-          .findUnique({
-            where: {
-              id: args.input.workspaceId,
-            },
-            select: {
-              name: true,
-            },
-            rejectOnNotFound: true,
-          })
-          .then((workspace) => workspace!),
-      ])
+      const workspace = await ctx.prisma.workspace.findUnique({
+        where: {
+          id: args.input.workspaceId,
+        },
+        select: {
+          name: true,
+        },
+      })
+
+      if (!workspace) {
+      }
 
       return ctx.prisma.workspace.update({
         where: {
