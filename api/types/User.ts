@@ -8,17 +8,12 @@ export const types = [
   queryField('me', {
     type: 'User',
     resolve(_, __, ctx) {
-      return (
-        ctx.prisma.user
-          .findUnique({
-            rejectOnNotFound: true,
-            where: {
-              id: ctx.user.id,
-            },
-          })
-          // todo remove me once Prisma typing accurately models the effect of rejectOnNotFound :)
-          .then((user) => user!)
-      )
+      return ctx.prisma.user.findUnique({
+        rejectOnNotFound: true,
+        where: {
+          id: ctx.user.id,
+        },
+      })
     },
   }),
 
@@ -32,8 +27,7 @@ export const types = [
       t.id('id')
       t.string('displayName', {
         resolve(user) {
-          // todo We need to change our user sign up flow to never allow empty user display names.
-          return user.name ?? 'todo'
+          return user.displayName
         },
       })
       // todo remove useless resolve once https://github.com/graphql-nexus/nexus/issues/800 fixed

@@ -14,11 +14,11 @@ enum UserKind {
 }
 
 model User {
-  kind  UserKind @default(user)
-  id    String   @id @default(cuid())
-  email String   @unique
-  name  String
-  image String?
+  kind        UserKind @default(user)
+  id          String   @id @default(cuid())
+  email       String   @unique
+  displayName String
+  image       String?
 
   workspaceMemberships WorkspaceMembership[]
   projectMemberships   ProjectMembership[]

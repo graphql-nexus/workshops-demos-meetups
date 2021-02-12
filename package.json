@@ -7,7 +7,7 @@
     "ts-node": "ts-node --compiler-options '{\"module\":\"CommonJS\"}'",
     "dev": "next dev",
     "db:up": "docker-compose up --detach",
-    "db:migrate": "prisma db push --force --preview-feature && yarn ts-node prisma/seed"
+    "db:migrate": "prisma migrate dev --skip-seed --preview-feature && yarn ts-node prisma/seed"
   },
   "keywords": [],
   "author": "Jason Kuhrt",
