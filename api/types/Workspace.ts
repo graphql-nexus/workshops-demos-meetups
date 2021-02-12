@@ -238,19 +238,17 @@ export const types = [
       input: nonNull('DeleteWorkspaceInput'),
     },
     async resolve(_, args, ctx) {
-      const workspace = await ctx.prisma.workspace
-        .findUnique({
-          where: {
-            id: args.input.id,
-          },
-          select: {
-            id: true,
-            kind: true,
-            memberships: true,
-          },
-          rejectOnNotFound: true,
-        })
-        .then((workspace) => workspace!)
+      const workspace = await ctx.prisma.workspace.findUnique({
+        where: {
+          id: args.input.id,
+        },
+        select: {
+          id: true,
+          kind: true,
+          memberships: true,
+        },
+        rejectOnNotFound: true,
+      })
 
       return ctx.prisma.workspace.delete({
         where: {
@@ -315,14 +313,12 @@ export const types = [
       t.field('user', {
         type: 'User',
         resolve(membership, __, ctx) {
-          return ctx.prisma.user
-            .findUnique({
-              where: {
-                id: membership.userId,
-              },
-              rejectOnNotFound: true,
-            })
-            .then((user) => user!)
+          return ctx.prisma.user.findUnique({
+            where: {
+              id: membership.userId,
+            },
+            rejectOnNotFound: true,
+          })
         },
       })
     },

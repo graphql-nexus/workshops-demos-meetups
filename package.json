@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "ts-node": "ts-node --compiler-options '{\"module\":\"CommonJS\"}'",
+    "nexus:reflect": "yarn ts-node --transpile-only api/schema",
     "dev": "next dev",
     "db:up": "docker-compose up --detach",
-    "db:migrate": "prisma migrate dev --skip-seed --preview-feature && yarn ts-node prisma/seed"
+    "db:migrate": "prisma migrate dev --skip-seed --preview-feature && yarn ts-node prisma/seed",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "Jason Kuhrt",

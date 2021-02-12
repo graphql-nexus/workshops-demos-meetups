@@ -205,14 +205,12 @@ export const types = [
       t.field('user', {
         type: 'User',
         resolve(membership, __, ctx) {
-          return ctx.prisma.user
-            .findUnique({
-              where: {
-                id: membership.userId,
-              },
-              rejectOnNotFound: true,
-            })
-            .then((user) => user!)
+          return ctx.prisma.user.findUnique({
+            where: {
+              id: membership.userId,
+            },
+            rejectOnNotFound: true,
+          })
         },
       })
     },
